@@ -1,0 +1,164 @@
+<emu-clause id="sec-grammar">
+  <h1>Grammar</h1>
+
+  <emu-grammar>
+    Root :
+      Program
+
+    Program :
+      StatementList?
+
+    StatementList :
+      StatementList Statement
+      Statement
+
+    Statement :
+      Mustache
+      Block
+      RawBlock
+      Partial
+      PartialBlock
+      Content
+      Comment
+
+    Comment :
+      TODO
+
+    Content :
+      TODO
+
+    RawBlock :
+      RawBlockStart RawContent RawBlockEnd
+
+    RawBlockStart :
+      `{{{{` HelperName ParamList? HashPairList? `}}}}`
+
+    RawContent :
+      TODO
+
+    RawBlockEnd :
+      `{{{{/` HelperName `}}}}`
+
+    Block :
+      BlockStart Program InverseChain? BlockEnd
+      InvertedBlockStart Program Inverse? BlockEnd
+
+    BlockStart :
+      `{{` `~`? `#` HelperName ParamList? HashPairList? BlockParams? `~`? `}}`
+
+    InvertedBlockStart :
+      `{{` `~`? `^` HelperName ParamList? HashPairList? BlockParams? `~`? `}}`
+
+    BlockEnd :
+      `{{` `~`? `/` HelperName `~`? `}}`
+
+    InverseChain :
+      InverseChainStart Program InverseChain?
+      Inverse
+
+    InverseChainStart :
+      `{{` `~`? `else` HelperName ParamList? HashPairList? BlockParams? `~`? `}}`
+
+    Inverse :
+      InverseSeparator Program
+
+    InverseSeparator :
+      `{{` `~`? `else` `~`? `}}`
+      `{{` `~`? `^` `~`? `}}`
+
+    Mustache :
+      `{{` `~`? HelperName ParamList? HashPairList? `~`? `}}`
+      `{{` `~`? `{` HelperName ParamList? HashPairList? `}` `~`? `}}`
+      `{{` `~`? `&` HelperName ParamList? HashPairList? `~`? `}}`
+
+    Partial :
+      `{{` `~`? `>` PartialName ParamList? HashPairList? `~`? `}}`
+
+    PartialBlock :
+      PartialBlockStart Program BlockEnd
+
+    PartialBlockStart :
+      `{{` `~`? `#>` PartialName ParamList? HashPairList? `~`? `}}`      
+
+    ParamList :
+      ParamList Param
+      Param
+
+    Param :
+      HelperName
+      Subexpression
+
+    Subexpression :
+      `(` HelperName ParamList? HashPairList? `)`
+
+    HashPairList :
+      HashPairList HashPair
+      HashPair
+
+    HashPair :
+      Identifier `=` Param
+
+    BlockParams :
+      `as` `|` BlockParamList `|`
+
+    BlockParamList :
+      BlockParamList Identifier
+      Identifier
+
+    Identifier :
+      TODO
+
+    HelperName :
+      PathExpression
+      DataExpression
+      StringLiteral
+      NumericLiteral
+      BooleanLiteral
+      NullLiteral
+      UndefinedLiteral
+
+    PartialName :
+      HelperName
+      Subexpression
+
+    DataExpression :
+      `@` PathSegments
+
+    PathExpression :
+      PathSegments
+
+    PathSegments :
+      PathSegments PathSeparator Identifier
+      Identifier
+
+    PathSeparator :
+      `/`
+      `.`
+
+    StringLiteral :
+      `'` SingleQuotedStringCharacters? `'`
+      `"` DoubleQuotedStringCharacters? `"`
+
+    SingleQuotedStringCharacters :
+      TODO
+
+    DoubleQuotedStringCharacters :
+      TODO
+
+    NumericLiteral :
+      TODO
+
+    BooleanLiteral :
+      `true`
+      `false`
+
+    NullLiteral :
+      `null`
+
+    UndefinedLiteral :
+      `undefined`
+
+    TODO :
+      `Placeholder for missing productions`
+  </emu-grammar>
+</emu-clause>

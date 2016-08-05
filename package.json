@@ -1,0 +1,13 @@
+{
+  "description": "The Handlebars language specification",
+  "repository": "handlebars-lang/spec",
+  "license": "MIT",
+  "scripts": {
+    "ecmarkup": "rm -rf dist && mkdir dist && ecmarkup src/index.html dist/spec.html --css dist/ecmarkup.css",
+    "server": "live-server dist --open=spec.html"
+  },
+  "dependencies": {
+    "ecmarkup": "^3.2.6",
+    "live-server": "^1.0.0"
+  }
+}
