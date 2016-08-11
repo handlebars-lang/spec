@@ -1,0 +1,160 @@
+<emu-clause id="sec-handlebars-specification-types">
+  <h1>Handlebars Specification Types</h1>
+
+  <emu-clause id="sec-handlebars-specification-types-host">
+    <h1>The Host Specification Type</h1>
+
+    <pre><code class="lang-typescript">
+      namespace interface Host {
+        interface Meta {}
+
+        interface DynamicScope {
+          child(): DynamicScope;
+        }
+      }
+    </code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-hostvalue">
+    <h1>The HostValue Specification Type</h1>
+
+    <p>The <dfn>HostValue</dfn> type represents any value representable in the
+    host environment</p>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-destroyable">
+    <h1>The Destroyable Specification Type</h1>
+    <pre><code class="lang-typescript">
+      interface Destroyable {
+        destroy(): void;
+      }
+    </code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-reference">
+    <h1>The Reference Specification Type</h1>
+    <pre><code class="lang-typescript">
+      interface Reference {
+        value(): HostValue;
+        get(name: string): Reference;
+      }
+    </code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-appendable">
+    <h1>The Appendable Specification Type</h1>
+    <pre><code class="lang-typescript">
+      interface Appendable {
+        type Host;
+        type State;
+
+        create(args: Args, dynamicScope: Self::Host::DynamicScope): Self::State;
+        self(state: Self::State): Reference;
+        invoke(appender: Appender);
+        getDestructor(state: Self::State): Destroyable;
+      }
+    </code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-appender">
+    <h1>The Appender Specification Type</h1>
+    <pre><code class="lang-typescript">
+      interface Appender {
+        append(appendable: Appendable): void;
+      }
+    </code></pre>
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="sec-handlebars-specification-statements">
+  <h1>Statements</h1>
+  <emu-clause id="sec-handlebars-specification-statements-statementlist">
+    <h1>|StatementList|</h1>
+    <emu-clause id="sec-handlebars-specification-statements-statementlist-evaluation">
+      <h1>Runtime Semantics: Evaluation</h1>
+      <emu-grammar>StatementList : StatementList Statement</emu-grammar>
+      <emu-alg>
+        1. let _sl_ = Eval( |StatementList| )
+        1. let _s_ = Eval( |Statement| )
+        1. return Join(_s_, _sl_)
+      </emu-alg>
+      <emu-grammar>StatementList : [empty]</emu-grammar>
+      <emu-alg>
+        1. return Ok([])
+      </emu-alg>
+    </emu-clause>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-statements-content">
+    <h1>|Content|</h1>
+    <emu-clause id="sec-handlebars-specification-static-semantics-statements-content-value">
+      <h1>Static Semantics: Value</h1>
+      <emu-grammar>Content :: TODO</emu-grammar>
+    </emu-clause>
+    <emu-clause id="sec-handlebars-specification-static-semantics-statements-content-value">
+      <h1>Runtime Semantics: Evaluation</h1>
+      <emu-grammar>Content :: TODO</emu-grammar>
+      <emu-alg>
+        1. let _ref_ = *new* Reference( Value(|Content|) )
+        1. let _appender_ = _context_.realm.appender
+        1. let _appendable_ = TODO
+        1. _appender_.append( _appendable_ )
+      </emu-alg>
+    </emu-clause>
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="sec-handlebars-specification-templates-and-components">
+  <h1>Handlebars Language: Templates and Components</h1>
+  <emu-clause id="sec-handlebars-specification-templates">
+    <h1>Templates</h1>
+    <h2>Syntax</h2>
+    <emu-grammar>
+      Program : StatementList?  
+    </emu-grammar>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-script-records">
+    <h1>Evalution Records</h1>
+    <pre><code class="lang-typescript">
+      interface EvaluationRecord&lt;Host&gt; {
+        realm: Realm;
+        scope: Scope;
+        code: Code;
+        meta: Host::Meta;
+      }
+    </code></pre>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-realms">
+    <h1>Realms</h1>
+    <pre><code class="lang-typescript">
+      interface Realm&lt;Host&gt; {
+        intrinsics: Host::Instrinsics;
+        globals: Reference;
+        meta: Host::RealmMeta;
+        appender: Host::Appender;
+      }
+    </code></pre>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-scopes">
+    <h1>Scopes</h1>
+    <pre><code class="lang-typescript">
+      interface Scope {
+        parent: Option&lt;Scope&gt;;
+        createBinding(name: string): void;
+        initializeBinding(name: string, ref: Reference): void;
+        hasBinding(name: string): boolean;
+        getBindingReference(name: string): Reference;
+        bindSelf(ref: Reference): void;
+        getSelf(): Reference;
+      }
+    </code></pre>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-templates-evaluation">
+    <h1>TemplateEvaluation( _template_: |Program|, _root_: Reference, _realm_: Realm )</h1>
+    <emu-alg>
+      1. let _context_ = *new* CodeExecutionContext()
+      1. _context_.realm = realm
+      1. _context_.template = template
+      1. _context_.scope = *new* Scope( _root_ )
+    </emu-alg>
+  </emu-clause>
+</emu-clause>

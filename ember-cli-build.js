@@ -39,6 +39,26 @@ class EcmarkupProcessor extends BroccoliCachingWriter {
         fs.copySync(
           path.join(ecmarkupPath, '../../css/elements.css'),
           path.join(outputPath, this.options.cssFile)
+        );
+        fs.copySync(
+          path.join(ecmarkupPath, '../../js/ecmarkup.js'),
+          path.join(outputPath, 'ecmarkup.js')
+        );
+        fs.copySync(
+          path.join(ecmarkupPath, '../../js/findLocalReferences.js'),
+          path.join(outputPath, 'findLocalReferences.js')
+        );
+        fs.copySync(
+          path.join(ecmarkupPath, '../../js/menu.js'),
+          path.join(outputPath, 'menu.js')
+        );
+        fs.copySync(
+          path.join(inputPath, 'highlight.pack.js'),
+          path.join(outputPath, 'highlight.pack.js')
+        );
+        fs.copySync(
+          path.join(inputPath, 'hl.css'),
+          path.join(outputPath, 'hl.css')
         )
       }
     });
