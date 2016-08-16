@@ -1,0 +1,328 @@
+<!doctype html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" href="ecmarkup.css">
+<link rel="stylesheet" href="hl.css">
+<script src="highlight.pack.js"></script>
+<script src="ecmarkup.js"></script>
+<script src="findLocalReferences.js"></script>
+<script src="menu.js"></script>
+
+<title>Handlebars Language Specification</title><script type="application/json" id="menu-search-biblio">[{"type":"clause","id":"sec-scope","aoid":null,"title":"Scope","number":"1","namespace":"<no location>","location":"","key":"Scope"},{"type":"clause","id":"sec-grammar","aoid":null,"title":"Grammar","number":"2","namespace":"<no location>","location":"","key":"Grammar"},{"type":"clause","id":"sec-handlebars-specification-types","aoid":null,"title":"Handlebars Specification Types","number":"3","namespace":"<no location>","location":"","key":"Handlebars Specification Types"},{"type":"clause","id":"sec-handlebars-specification-types-host","aoid":null,"title":"The Host Specification Type","number":"3.1","namespace":"<no location>","location":"","key":"The Host Specification Type"},{"type":"clause","id":"sec-handlebars-specification-types-hostvalue","aoid":null,"title":"The HostValue Specification Type","number":"3.2","namespace":"<no location>","location":"","key":"The HostValue Specification Type"},{"type":"clause","id":"sec-handlebars-specification-types-destroyable","aoid":null,"title":"The Destroyable Specification Type","number":"3.3","namespace":"<no location>","location":"","key":"The Destroyable Specification Type"},{"type":"clause","id":"sec-handlebars-specification-types-reference","aoid":null,"title":"The Reference Specification Type","number":"3.4","namespace":"<no location>","location":"","key":"The Reference Specification Type"},{"type":"clause","id":"sec-handlebars-specification-types-appendable","aoid":null,"title":"The Appendable Specification Type","number":"3.5","namespace":"<no location>","location":"","key":"The Appendable Specification Type"},{"type":"clause","id":"sec-handlebars-specification-types-appender","aoid":null,"title":"The Appender Specification Type","number":"3.6","namespace":"<no location>","location":"","key":"The Appender Specification Type"},{"type":"clause","id":"sec-handlebars-specification-statements","aoid":null,"title":"Statements","number":"4","namespace":"<no location>","location":"","key":"Statements"},{"type":"clause","id":"sec-handlebars-specification-statements-statementlist","aoid":null,"title":"|StatementList|","number":"4.1","namespace":"<no location>","location":"","key":"|StatementList|"},{"type":"clause","id":"sec-handlebars-specification-statements-statementlist-evaluation","aoid":null,"title":"Runtime Semantics: Evaluation","number":"4.1.1","namespace":"<no location>","location":"","key":"Runtime Semantics: Evaluation"},{"type":"clause","id":"sec-handlebars-specification-statements-content","aoid":null,"title":"|Content|","number":"4.2","namespace":"<no location>","location":"","key":"|Content|"},{"type":"clause","id":"sec-handlebars-specification-static-semantics-statements-content-value","aoid":null,"title":"Static Semantics: Value","number":"4.2.1","namespace":"<no location>","location":"","key":"Static Semantics: Value"},{"type":"clause","id":"sec-handlebars-specification-static-semantics-statements-content-value","aoid":null,"title":"Runtime Semantics: Evaluation","number":"4.2.2","namespace":"<no location>","location":"","key":"Runtime Semantics: Evaluation"},{"type":"clause","id":"sec-handlebars-specification-templates-and-components","aoid":null,"title":"Handlebars Language: Templates and Components","number":"5","namespace":"<no location>","location":"","key":"Handlebars Language: Templates and Components"},{"type":"clause","id":"sec-handlebars-specification-templates","aoid":null,"title":"Templates","number":"5.1","namespace":"<no location>","location":"","key":"Templates"},{"type":"clause","id":"sec-handlebars-specification-script-records","aoid":null,"title":"Evalution Records","number":"5.2","namespace":"<no location>","location":"","key":"Evalution Records"},{"type":"clause","id":"sec-handlebars-specification-realms","aoid":null,"title":"Realms","number":"5.3","namespace":"<no location>","location":"","key":"Realms"},{"type":"clause","id":"sec-handlebars-specification-scopes","aoid":null,"title":"Scopes","number":"5.4","namespace":"<no location>","location":"","key":"Scopes"},{"type":"clause","id":"sec-handlebars-specification-templates-evaluation","aoid":null,"title":"TemplateEvaluation( _template_: |Program|, _root_: Reference, _realm_: Realm )","number":"5.5","namespace":"<no location>","location":"","key":"TemplateEvaluation( _template_: |Program|, _root_: Reference, _realm_: Realm )"},{"type":"production","id":"prod-Root","name":"Root","namespace":"<no location>","location":"","key":"Root"},{"type":"production","id":"prod-Program","name":"Program","namespace":"<no location>","location":"","key":"Program"},{"type":"production","id":"prod-StatementList","name":"StatementList","namespace":"<no location>","location":"","key":"StatementList"},{"type":"production","id":"prod-Statement","name":"Statement","namespace":"<no location>","location":"","key":"Statement"},{"type":"production","id":"prod-Comment","name":"Comment","namespace":"<no location>","location":"","key":"Comment"},{"type":"production","id":"prod-Content","name":"Content","namespace":"<no location>","location":"","key":"Content"},{"type":"production","id":"prod-RawBlock","name":"RawBlock","namespace":"<no location>","location":"","key":"RawBlock"},{"type":"production","id":"prod-RawBlockStart","name":"RawBlockStart","namespace":"<no location>","location":"","key":"RawBlockStart"},{"type":"production","id":"prod-RawContent","name":"RawContent","namespace":"<no location>","location":"","key":"RawContent"},{"type":"production","id":"prod-RawBlockEnd","name":"RawBlockEnd","namespace":"<no location>","location":"","key":"RawBlockEnd"},{"type":"production","id":"prod-Block","name":"Block","namespace":"<no location>","location":"","key":"Block"},{"type":"production","id":"prod-BlockStart","name":"BlockStart","namespace":"<no location>","location":"","key":"BlockStart"},{"type":"production","id":"prod-InvertedBlockStart","name":"InvertedBlockStart","namespace":"<no location>","location":"","key":"InvertedBlockStart"},{"type":"production","id":"prod-BlockEnd","name":"BlockEnd","namespace":"<no location>","location":"","key":"BlockEnd"},{"type":"production","id":"prod-InverseChain","name":"InverseChain","namespace":"<no location>","location":"","key":"InverseChain"},{"type":"production","id":"prod-InverseChainStart","name":"InverseChainStart","namespace":"<no location>","location":"","key":"InverseChainStart"},{"type":"production","id":"prod-Inverse","name":"Inverse","namespace":"<no location>","location":"","key":"Inverse"},{"type":"production","id":"prod-InverseSeparator","name":"InverseSeparator","namespace":"<no location>","location":"","key":"InverseSeparator"},{"type":"production","id":"prod-Mustache","name":"Mustache","namespace":"<no location>","location":"","key":"Mustache"},{"type":"production","id":"prod-Partial","name":"Partial","namespace":"<no location>","location":"","key":"Partial"},{"type":"production","id":"prod-PartialBlock","name":"PartialBlock","namespace":"<no location>","location":"","key":"PartialBlock"},{"type":"production","id":"prod-PartialBlockStart","name":"PartialBlockStart","namespace":"<no location>","location":"","key":"PartialBlockStart"},{"type":"production","id":"prod-ParamList","name":"ParamList","namespace":"<no location>","location":"","key":"ParamList"},{"type":"production","id":"prod-Param","name":"Param","namespace":"<no location>","location":"","key":"Param"},{"type":"production","id":"prod-Subexpression","name":"Subexpression","namespace":"<no location>","location":"","key":"Subexpression"},{"type":"production","id":"prod-HashPairList","name":"HashPairList","namespace":"<no location>","location":"","key":"HashPairList"},{"type":"production","id":"prod-HashPair","name":"HashPair","namespace":"<no location>","location":"","key":"HashPair"},{"type":"production","id":"prod-BlockParams","name":"BlockParams","namespace":"<no location>","location":"","key":"BlockParams"},{"type":"production","id":"prod-BlockParamList","name":"BlockParamList","namespace":"<no location>","location":"","key":"BlockParamList"},{"type":"production","id":"prod-Identifier","name":"Identifier","namespace":"<no location>","location":"","key":"Identifier"},{"type":"production","id":"prod-HelperName","name":"HelperName","namespace":"<no location>","location":"","key":"HelperName"},{"type":"production","id":"prod-PartialName","name":"PartialName","namespace":"<no location>","location":"","key":"PartialName"},{"type":"production","id":"prod-DataExpression","name":"DataExpression","namespace":"<no location>","location":"","key":"DataExpression"},{"type":"production","id":"prod-PathExpression","name":"PathExpression","namespace":"<no location>","location":"","key":"PathExpression"},{"type":"production","id":"prod-PathSegments","name":"PathSegments","namespace":"<no location>","location":"","key":"PathSegments"},{"type":"production","id":"prod-PathSeparator","name":"PathSeparator","namespace":"<no location>","location":"","key":"PathSeparator"},{"type":"production","id":"prod-StringLiteral","name":"StringLiteral","namespace":"<no location>","location":"","key":"StringLiteral"},{"type":"production","id":"prod-SingleQuotedStringCharacters","name":"SingleQuotedStringCharacters","namespace":"<no location>","location":"","key":"SingleQuotedStringCharacters"},{"type":"production","id":"prod-DoubleQuotedStringCharacters","name":"DoubleQuotedStringCharacters","namespace":"<no location>","location":"","key":"DoubleQuotedStringCharacters"},{"type":"production","id":"prod-NumericLiteral","name":"NumericLiteral","namespace":"<no location>","location":"","key":"NumericLiteral"},{"type":"production","id":"prod-BooleanLiteral","name":"BooleanLiteral","namespace":"<no location>","location":"","key":"BooleanLiteral"},{"type":"production","id":"prod-NullLiteral","name":"NullLiteral","namespace":"<no location>","location":"","key":"NullLiteral"},{"type":"production","id":"prod-UndefinedLiteral","name":"UndefinedLiteral","namespace":"<no location>","location":"","key":"UndefinedLiteral"},{"type":"production","id":"prod-TODO","name":"TODO","namespace":"<no location>","location":"","key":"TODO"},{"type":"term","term":"HostValue","refId":"sec-handlebars-specification-types-hostvalue","namespace":"<no location>","location":"","key":"HostValue"}]</script></head><body><div id="menu-toggle">☰</div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="#sec-grammar" title="Grammar"><span class="secnum">2</span> Grammar</a></li><li><span class="item-toggle">◢</span><a href="#sec-handlebars-specification-types" title="Handlebars Specification Types"><span class="secnum">3</span> Handlebars Specification Types</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-types-host" title="The Host Specification Type"><span class="secnum">3.1</span> The Host Specification Type</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-types-hostvalue" title="The HostValue Specification Type"><span class="secnum">3.2</span> The HostValue Specification Type</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-types-destroyable" title="The Destroyable Specification Type"><span class="secnum">3.3</span> The Destroyable Specification Type</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-types-reference" title="The Reference Specification Type"><span class="secnum">3.4</span> The Reference Specification Type</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-types-appendable" title="The Appendable Specification Type"><span class="secnum">3.5</span> The Appendable Specification Type</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-types-appender" title="The Appender Specification Type"><span class="secnum">3.6</span> The Appender Specification Type</a></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-handlebars-specification-statements" title="Statements"><span class="secnum">4</span> Statements</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-handlebars-specification-statements-statementlist" title="|StatementList|"><span class="secnum">4.1</span> <emu-nt>StatementList</emu-nt></a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-statements-statementlist-evaluation" title="Runtime Semantics: Evaluation"><span class="secnum">4.1.1</span> RS: Evaluation</a></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-handlebars-specification-statements-content" title="|Content|"><span class="secnum">4.2</span> <emu-nt>Content</emu-nt></a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-static-semantics-statements-content-value" title="Static Semantics: Value"><span class="secnum">4.2.1</span> SS: Value</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-static-semantics-statements-content-value" title="Runtime Semantics: Evaluation"><span class="secnum">4.2.2</span> RS: Evaluation</a></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-handlebars-specification-templates-and-components" title="Handlebars Language: Templates and Components"><span class="secnum">5</span> Handlebars Language: Templates and Components</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-templates" title="Templates"><span class="secnum">5.1</span> Templates</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-script-records" title="Evalution Records"><span class="secnum">5.2</span> Evalution Records</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-realms" title="Realms"><span class="secnum">5.3</span> Realms</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-scopes" title="Scopes"><span class="secnum">5.4</span> Scopes</a></li><li><span class="item-toggle-none"></span><a href="#sec-handlebars-specification-templates-evaluation" title="TemplateEvaluation( _template_: |Program|, _root_: Reference, _realm_: Realm )"><span class="secnum">5.5</span> TemplateEvaluation( <var>template</var>: <emu-nt>Program</emu-nt>, <var>root</var>: Reference, <var>realm</var>: Realm )</a></li></ol></li></ol></div></div><h1 class="version">Stage 0 Draft / August 16, 2016</h1><h1 class="title">Handlebars Language Specification</h1>
+
+<emu-import href="./scope.html"><emu-clause id="sec-scope">
+  <h1><span class="secnum">1</span>Scope<span class="utils"><span class="anchor"><a href="#sec-scope">#</a></span></span></h1>
+
+  <p>This document describes the Handlebars templating language.</p>
+</emu-clause>
+</emu-import>
+<emu-import href="./grammar.html"><emu-clause id="sec-grammar">
+  <h1><span class="secnum">2</span>Grammar<span class="utils"><span class="anchor"><a href="#sec-grammar">#</a></span></span></h1>
+
+  <emu-grammar><emu-production name="Root" id="prod-Root">
+    <emu-nt><a href="#prod-Root">Root</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="9d68007b"><emu-nt><a href="#prod-Program">Program</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Program" id="prod-Program">
+    <emu-nt><a href="#prod-Program">Program</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a965a495"><emu-nt optional=""><a href="#prod-StatementList">StatementList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="StatementList" id="prod-StatementList">
+    <emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="3720e977"><emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt><emu-nt><a href="#prod-Statement">Statement</a></emu-nt></emu-rhs>
+    <emu-rhs a="a72ca256"><emu-nt><a href="#prod-Statement">Statement</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Statement" id="prod-Statement">
+    <emu-nt><a href="#prod-Statement">Statement</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="f6c4e7b6"><emu-nt><a href="#prod-Mustache">Mustache</a></emu-nt></emu-rhs>
+    <emu-rhs a="82dd2cdf"><emu-nt><a href="#prod-Block">Block</a></emu-nt></emu-rhs>
+    <emu-rhs a="ffc5c6db"><emu-nt><a href="#prod-RawBlock">RawBlock</a></emu-nt></emu-rhs>
+    <emu-rhs a="65de2e2a"><emu-nt><a href="#prod-Partial">Partial</a></emu-nt></emu-rhs>
+    <emu-rhs a="41c3a080"><emu-nt><a href="#prod-PartialBlock">PartialBlock</a></emu-nt></emu-rhs>
+    <emu-rhs a="4f9be057"><emu-nt><a href="#prod-Content">Content</a></emu-nt></emu-rhs>
+    <emu-rhs a="153d7a58"><emu-nt><a href="#prod-Comment">Comment</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Comment" id="prod-Comment">
+    <emu-nt><a href="#prod-Comment">Comment</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Content" id="prod-Content">
+    <emu-nt><a href="#prod-Content">Content</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="RawBlock" id="prod-RawBlock">
+    <emu-nt><a href="#prod-RawBlock">RawBlock</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="23c0edd0"><emu-nt><a href="#prod-RawBlockStart">RawBlockStart</a></emu-nt><emu-nt><a href="#prod-RawContent">RawContent</a></emu-nt><emu-nt><a href="#prod-RawBlockEnd">RawBlockEnd</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="RawBlockStart" id="prod-RawBlockStart">
+    <emu-nt><a href="#prod-RawBlockStart">RawBlockStart</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="65417c55"><emu-t>{{{{</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>}}}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="RawContent" id="prod-RawContent">
+    <emu-nt><a href="#prod-RawContent">RawContent</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="RawBlockEnd" id="prod-RawBlockEnd">
+    <emu-nt><a href="#prod-RawBlockEnd">RawBlockEnd</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="8be9dbaf"><emu-t>{{{{/</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-t>}}}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="Block" id="prod-Block">
+    <emu-nt><a href="#prod-Block">Block</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a34f0f41"><emu-nt><a href="#prod-BlockStart">BlockStart</a></emu-nt><emu-nt><a href="#prod-Program">Program</a></emu-nt><emu-nt optional=""><a href="#prod-InverseChain">InverseChain</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt><a href="#prod-BlockEnd">BlockEnd</a></emu-nt></emu-rhs>
+    <emu-rhs a="c6edbab6"><emu-nt><a href="#prod-InvertedBlockStart">InvertedBlockStart</a></emu-nt><emu-nt><a href="#prod-Program">Program</a></emu-nt><emu-nt optional=""><a href="#prod-Inverse">Inverse</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt><a href="#prod-BlockEnd">BlockEnd</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="BlockStart" id="prod-BlockStart">
+    <emu-nt><a href="#prod-BlockStart">BlockStart</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="055d1665"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>#</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-BlockParams">BlockParams</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="InvertedBlockStart" id="prod-InvertedBlockStart">
+    <emu-nt><a href="#prod-InvertedBlockStart">InvertedBlockStart</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="855bcd2c"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>^</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-BlockParams">BlockParams</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="BlockEnd" id="prod-BlockEnd">
+    <emu-nt><a href="#prod-BlockEnd">BlockEnd</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="e8b313d3"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>/</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="InverseChain" id="prod-InverseChain">
+    <emu-nt><a href="#prod-InverseChain">InverseChain</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="d276c93d"><emu-nt><a href="#prod-InverseChainStart">InverseChainStart</a></emu-nt><emu-nt><a href="#prod-Program">Program</a></emu-nt><emu-nt optional=""><a href="#prod-InverseChain">InverseChain</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="bbe73938"><emu-nt><a href="#prod-Inverse">Inverse</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="InverseChainStart" id="prod-InverseChainStart">
+    <emu-nt><a href="#prod-InverseChainStart">InverseChainStart</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="4ed48d83"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>else</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-BlockParams">BlockParams</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="Inverse" id="prod-Inverse">
+    <emu-nt><a href="#prod-Inverse">Inverse</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="54a95898"><emu-nt><a href="#prod-InverseSeparator">InverseSeparator</a></emu-nt><emu-nt><a href="#prod-Program">Program</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="InverseSeparator" id="prod-InverseSeparator">
+    <emu-nt><a href="#prod-InverseSeparator">InverseSeparator</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="48c858ca"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>else</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+    <emu-rhs a="63d8a929"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>^</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="Mustache" id="prod-Mustache">
+    <emu-nt><a href="#prod-Mustache">Mustache</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="0ffdadee"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+    <emu-rhs a="291130b7"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>{</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>}</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+    <emu-rhs a="97ffcd8f"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>&amp;amp;</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="Partial" id="prod-Partial">
+    <emu-nt><a href="#prod-Partial">Partial</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="350e638e"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>&gt;</emu-t><emu-nt><a href="#prod-PartialName">PartialName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="PartialBlock" id="prod-PartialBlock">
+    <emu-nt><a href="#prod-PartialBlock">PartialBlock</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a41b3abe"><emu-nt><a href="#prod-PartialBlockStart">PartialBlockStart</a></emu-nt><emu-nt><a href="#prod-Program">Program</a></emu-nt><emu-nt><a href="#prod-BlockEnd">BlockEnd</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="PartialBlockStart" id="prod-PartialBlockStart">
+    <emu-nt><a href="#prod-PartialBlockStart">PartialBlockStart</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="ed266e65"><emu-t>{{</emu-t><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>#&gt;</emu-t><emu-nt><a href="#prod-PartialName">PartialName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t optional="">~<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t><emu-t>}}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="ParamList" id="prod-ParamList">
+    <emu-nt><a href="#prod-ParamList">ParamList</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="430b2410"><emu-nt><a href="#prod-ParamList">ParamList</a></emu-nt><emu-nt><a href="#prod-Param">Param</a></emu-nt></emu-rhs>
+    <emu-rhs a="0f332eee"><emu-nt><a href="#prod-Param">Param</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Param" id="prod-Param">
+    <emu-nt><a href="#prod-Param">Param</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="891b7ebd"><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt></emu-rhs>
+    <emu-rhs a="10d3ce72"><emu-nt><a href="#prod-Subexpression">Subexpression</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Subexpression" id="prod-Subexpression">
+    <emu-nt><a href="#prod-Subexpression">Subexpression</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a2f177af"><emu-t>(</emu-t><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-nt optional=""><a href="#prod-ParamList">ParamList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-nt optional=""><a href="#prod-HashPairList">HashPairList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="HashPairList" id="prod-HashPairList">
+    <emu-nt><a href="#prod-HashPairList">HashPairList</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="47b50018"><emu-nt><a href="#prod-HashPairList">HashPairList</a></emu-nt><emu-nt><a href="#prod-HashPair">HashPair</a></emu-nt></emu-rhs>
+    <emu-rhs a="d3a67616"><emu-nt><a href="#prod-HashPair">HashPair</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="HashPair" id="prod-HashPair">
+    <emu-nt><a href="#prod-HashPair">HashPair</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="8a9518c3"><emu-nt><a href="#prod-Identifier">Identifier</a></emu-nt><emu-t>=</emu-t><emu-nt><a href="#prod-Param">Param</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="BlockParams" id="prod-BlockParams">
+    <emu-nt><a href="#prod-BlockParams">BlockParams</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="e679e488"><emu-t>as</emu-t><emu-t>|</emu-t><emu-nt><a href="#prod-BlockParamList">BlockParamList</a></emu-nt><emu-t>|</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="BlockParamList" id="prod-BlockParamList">
+    <emu-nt><a href="#prod-BlockParamList">BlockParamList</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="7ddd0b5a"><emu-nt><a href="#prod-BlockParamList">BlockParamList</a></emu-nt><emu-nt><a href="#prod-Identifier">Identifier</a></emu-nt></emu-rhs>
+    <emu-rhs a="06b6ace8"><emu-nt><a href="#prod-Identifier">Identifier</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Identifier" id="prod-Identifier">
+    <emu-nt><a href="#prod-Identifier">Identifier</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="HelperName" id="prod-HelperName">
+    <emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="54f31881"><emu-nt><a href="#prod-PathExpression">PathExpression</a></emu-nt></emu-rhs>
+    <emu-rhs a="fae05bc7"><emu-nt><a href="#prod-DataExpression">DataExpression</a></emu-nt></emu-rhs>
+    <emu-rhs a="5c74e54d"><emu-nt><a href="#prod-StringLiteral">StringLiteral</a></emu-nt></emu-rhs>
+    <emu-rhs a="a548b407"><emu-nt><a href="#prod-NumericLiteral">NumericLiteral</a></emu-nt></emu-rhs>
+    <emu-rhs a="3508e1fd"><emu-nt><a href="#prod-BooleanLiteral">BooleanLiteral</a></emu-nt></emu-rhs>
+    <emu-rhs a="54f84188"><emu-nt><a href="#prod-NullLiteral">NullLiteral</a></emu-nt></emu-rhs>
+    <emu-rhs a="96134cc4"><emu-nt><a href="#prod-UndefinedLiteral">UndefinedLiteral</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="PartialName" id="prod-PartialName">
+    <emu-nt><a href="#prod-PartialName">PartialName</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="891b7ebd"><emu-nt><a href="#prod-HelperName">HelperName</a></emu-nt></emu-rhs>
+    <emu-rhs a="10d3ce72"><emu-nt><a href="#prod-Subexpression">Subexpression</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="DataExpression" id="prod-DataExpression">
+    <emu-nt><a href="#prod-DataExpression">DataExpression</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="770df9f1"><emu-t>@</emu-t><emu-nt><a href="#prod-PathSegments">PathSegments</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="PathExpression" id="prod-PathExpression">
+    <emu-nt><a href="#prod-PathExpression">PathExpression</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a84b4355"><emu-nt><a href="#prod-PathSegments">PathSegments</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="PathSegments" id="prod-PathSegments">
+    <emu-nt><a href="#prod-PathSegments">PathSegments</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="eba94cfa"><emu-nt><a href="#prod-PathSegments">PathSegments</a></emu-nt><emu-nt><a href="#prod-PathSeparator">PathSeparator</a></emu-nt><emu-nt><a href="#prod-Identifier">Identifier</a></emu-nt></emu-rhs>
+    <emu-rhs a="06b6ace8"><emu-nt><a href="#prod-Identifier">Identifier</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="PathSeparator" id="prod-PathSeparator">
+    <emu-nt><a href="#prod-PathSeparator">PathSeparator</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="d3fd5f53"><emu-t>/</emu-t></emu-rhs>
+    <emu-rhs a="9658e473"><emu-t>.</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="StringLiteral" id="prod-StringLiteral">
+    <emu-nt><a href="#prod-StringLiteral">StringLiteral</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="21e78722"><emu-t>'</emu-t><emu-nt optional=""><a href="#prod-SingleQuotedStringCharacters">SingleQuotedStringCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>'</emu-t></emu-rhs>
+    <emu-rhs a="4ff2b3c3"><emu-t>"</emu-t><emu-nt optional=""><a href="#prod-DoubleQuotedStringCharacters">DoubleQuotedStringCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>"</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="SingleQuotedStringCharacters" id="prod-SingleQuotedStringCharacters">
+    <emu-nt><a href="#prod-SingleQuotedStringCharacters">SingleQuotedStringCharacters</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="DoubleQuotedStringCharacters" id="prod-DoubleQuotedStringCharacters">
+    <emu-nt><a href="#prod-DoubleQuotedStringCharacters">DoubleQuotedStringCharacters</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="NumericLiteral" id="prod-NumericLiteral">
+    <emu-nt><a href="#prod-NumericLiteral">NumericLiteral</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="BooleanLiteral" id="prod-BooleanLiteral">
+    <emu-nt><a href="#prod-BooleanLiteral">BooleanLiteral</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="fa30b8c6"><emu-t>true</emu-t></emu-rhs>
+    <emu-rhs a="23d2c69d"><emu-t>false</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="NullLiteral" id="prod-NullLiteral">
+    <emu-nt><a href="#prod-NullLiteral">NullLiteral</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="77b50868"><emu-t>null</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="UndefinedLiteral" id="prod-UndefinedLiteral">
+    <emu-nt><a href="#prod-UndefinedLiteral">UndefinedLiteral</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="04880043"><emu-t>undefined</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="TODO" id="prod-TODO">
+    <emu-nt><a href="#prod-TODO">TODO</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="06023de5"><emu-t>Placeholder for missing productions</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+</emu-clause>
+</emu-import>
+<emu-import href="./append.html"><emu-clause id="sec-handlebars-specification-types">
+  <h1><span class="secnum">3</span>Handlebars Specification Types<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types">#</a></span></span></h1>
+
+  <emu-clause id="sec-handlebars-specification-types-host">
+    <h1><span class="secnum">3.1</span>The Host Specification Type<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types-host">#</a></span></span></h1>
+
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">namespace</span> <span class="hljs-keyword">interface</span> Host {
+  <span class="hljs-keyword">interface</span> Meta {}
+
+  <span class="hljs-keyword">interface</span> DynamicScope {
+    child(): DynamicScope;
+  }
+}</code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-hostvalue">
+    <h1><span class="secnum">3.2</span>The HostValue Specification Type<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types-hostvalue">#</a></span></span></h1>
+
+    <p>The  <dfn>HostValue</dfn> type represents any value representable in the
+    host environment</p>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-destroyable">
+    <h1><span class="secnum">3.3</span>The Destroyable Specification Type<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types-destroyable">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> Destroyable {
+  destroy(): <span class="hljs-built_in">void</span>;
+}</code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-reference">
+    <h1><span class="secnum">3.4</span>The Reference Specification Type<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types-reference">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> Reference {
+  value(): HostValue;
+  <span class="hljs-keyword">get</span>(name: <span class="hljs-built_in">string</span>): Reference;
+}</code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-appendable">
+    <h1><span class="secnum">3.5</span>The Appendable Specification Type<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types-appendable">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> Appendable {
+  <span class="hljs-keyword">type</span> Host;
+  <span class="hljs-keyword">type</span> State;
+
+  create(args: Args, dynamicScope: Self::Host::DynamicScope): Self::State;
+  self(state: Self::State): Reference;
+  invoke(appender: Appender);
+  getDestructor(state: Self::State): Destroyable;
+}</code></pre>
+  </emu-clause>
+
+  <emu-clause id="sec-handlebars-specification-types-appender">
+    <h1><span class="secnum">3.6</span>The Appender Specification Type<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-types-appender">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> Appender {
+  append(appendable: Appendable): <span class="hljs-built_in">void</span>;
+}</code></pre>
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="sec-handlebars-specification-statements">
+  <h1><span class="secnum">4</span>Statements<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-statements">#</a></span></span></h1>
+  <emu-clause id="sec-handlebars-specification-statements-statementlist">
+    <h1><span class="secnum">4.1</span><emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt><span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-statements-statementlist">#</a></span></span></h1>
+    <emu-clause id="sec-handlebars-specification-statements-statementlist-evaluation">
+      <h1><span class="secnum">4.1.1</span>Runtime Semantics: Evaluation<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-statements-statementlist-evaluation">#</a></span></span></h1>
+      <emu-grammar><emu-production name="StatementList" collapsed="">
+    <emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="3720e977"><emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt><emu-nt><a href="#prod-Statement">Statement</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+      <emu-alg><ol><li>let <var>sl</var> = Eval( <emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt> )</li><li>let <var>s</var> = Eval( <emu-nt><a href="#prod-Statement">Statement</a></emu-nt> )</li><li>return Join(<var>s</var>, <var>sl</var>)
+      </li></ol></emu-alg>
+      <emu-grammar><emu-production name="StatementList" collapsed="">
+    <emu-nt><a href="#prod-StatementList">StatementList</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="37b9c04c"><emu-gann>[empty]</emu-gann></emu-rhs>
+</emu-production></emu-grammar>
+      <emu-alg><ol><li>return Ok([])
+      </li></ol></emu-alg>
+    </emu-clause>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-statements-content">
+    <h1><span class="secnum">4.2</span><emu-nt><a href="#prod-Content">Content</a></emu-nt><span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-statements-content">#</a></span></span></h1>
+    <emu-clause id="sec-handlebars-specification-static-semantics-statements-content-value">
+      <h1><span class="secnum">4.2.1</span>Static Semantics: Value<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-static-semantics-statements-content-value">#</a></span></span></h1>
+      <emu-grammar><emu-production name="Content" type="lexical" collapsed="">
+    <emu-nt><a href="#prod-Content">Content</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    </emu-clause>
+    <emu-clause id="sec-handlebars-specification-static-semantics-statements-content-value">
+      <h1><span class="secnum">4.2.2</span>Runtime Semantics: Evaluation<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-static-semantics-statements-content-value">#</a></span></span></h1>
+      <emu-grammar><emu-production name="Content" type="lexical" collapsed="">
+    <emu-nt><a href="#prod-Content">Content</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b698c11e"><emu-nt><a href="#prod-TODO">TODO</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+      <emu-alg><ol><li>let <var>ref</var> = <emu-val>new</emu-val> <emu-xref href="#sec-reference-specification-type"><a href="https://tc39.github.io/ecma262/#sec-reference-specification-type">Reference</a></emu-xref>( Value(<emu-nt><a href="#prod-Content">Content</a></emu-nt>) )</li><li>let <var>appender</var> = <var>context</var>.realm.appender</li><li>let <var>appendable</var> = TODO</li><li><var>appender</var>.append( <var>appendable</var> )
+      </li></ol></emu-alg>
+    </emu-clause>
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="sec-handlebars-specification-templates-and-components">
+  <h1><span class="secnum">5</span>Handlebars Language: Templates and Components<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-templates-and-components">#</a></span></span></h1>
+  <emu-clause id="sec-handlebars-specification-templates">
+    <h1><span class="secnum">5.1</span>Templates<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-templates">#</a></span></span></h1>
+    <h2>Syntax</h2>
+    <emu-grammar><emu-production name="Program" collapsed="">
+    <emu-nt><a href="#prod-Program">Program</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a965a495"><emu-nt optional=""><a href="#prod-StatementList">StatementList</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-script-records">
+    <h1><span class="secnum">5.2</span>Evalution Records<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-script-records">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> EvaluationRecord&lt;Host&gt; {
+  realm: Realm;
+  scope: Scope;
+  code: Code;
+  meta: Host::Meta;
+}</code></pre>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-realms">
+    <h1><span class="secnum">5.3</span>Realms<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-realms">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> Realm&lt;Host&gt; {
+  intrinsics: Host::Instrinsics;
+  globals: Reference;
+  meta: Host::RealmMeta;
+  appender: Host::Appender;
+}</code></pre>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-scopes">
+    <h1><span class="secnum">5.4</span>Scopes<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-scopes">#</a></span></span></h1>
+    <pre><code class="lang-typescript hljs"><span class="hljs-keyword">interface</span> Scope {
+  parent: Option&lt;Scope&gt;;
+  createBinding(name: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span>;
+  initializeBinding(name: <span class="hljs-built_in">string</span>, ref: Reference): <span class="hljs-built_in">void</span>;
+  hasBinding(name: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span>;
+  getBindingReference(name: <span class="hljs-built_in">string</span>): Reference;
+  bindSelf(ref: Reference): <span class="hljs-built_in">void</span>;
+  getSelf(): Reference;
+}</code></pre>
+  </emu-clause>
+  <emu-clause id="sec-handlebars-specification-templates-evaluation">
+    <h1><span class="secnum">5.5</span>TemplateEvaluation( <var>template</var>: <emu-nt><a href="#prod-Program">Program</a></emu-nt>, <var>root</var>: Reference, <var>realm</var>: Realm )<span class="utils"><span class="anchor"><a href="#sec-handlebars-specification-templates-evaluation">#</a></span></span></h1>
+    <emu-alg><ol><li>let <var>context</var> = <emu-val>new</emu-val> CodeExecutionContext()</li><li><var>context</var>.<emu-xref href="#realm"><a href="https://tc39.github.io/ecma262/#realm">realm</a></emu-xref> = <emu-xref href="#realm"><a href="https://tc39.github.io/ecma262/#realm">realm</a></emu-xref></li><li><var>context</var>.template = template</li><li><var>context</var>.scope = <emu-val>new</emu-val> Scope( <var>root</var> )
+    </li></ol></emu-alg>
+  </emu-clause>
+</emu-clause>
+</emu-import>
+<!-- livereload snippet -->
+<script>document.write('<script src="http://'
+ + (location.host || 'localhost').split(':')[0]
+ + ':35729/livereload.js?snipver=1"><\/script>')
+</script>
+</body>
