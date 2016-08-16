@@ -3,7 +3,8 @@
   "repository": "handlebars-lang/spec",
   "license": "MIT",
   "scripts": {
-    "test": "ember build"
+    "test": "ember build",
+    "build": "ember build"
   },
   "devDependencies": {
     "broccoli-caching-writer": "^3.0.2",
