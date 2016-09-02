@@ -1,5 +1,24 @@
-<emu-clause id="sec-grammar">
-  <h1>Grammar</h1>
+<emu-clause id="sec-lexical-grammar">
+  <h1>Lexical Grammar</h1>
+
+  <emu-production name="Comment" type="lexical">
+    <emu-rhs>
+      <emu-t>{{!</emu-t>
+      <emu-nt>SourceCharacters</emu-nt>
+      <emu-gann>until <emu-t>}}</emu-t></emu-gann>
+      <emu-t>}}</emu-t>
+    </emu-rhs>
+    <emu-rhs>
+      <emu-t>{{!--</emu-t>
+      <emu-nt>SourceCharacters</emu-nt>
+      <emu-gann>until <emu-t>--}}</emu-t></emu-gann>
+      <emu-t>--}}</emu-t>
+    </emu-rhs>
+  </emu-production>
+</emu-clause>
+
+<emu-clause id="sec-syntactic-grammar">
+  <h1>Syntactic Grammar</h1>
 
   <emu-grammar>
     Root :
@@ -21,9 +40,6 @@
       PartialBlock
       Content
       Comment
-
-    Comment :
-      TODO
 
     Content :
       TODO
