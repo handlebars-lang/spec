@@ -19,8 +19,8 @@
   <h1><span class="secnum">2</span>Lexical Grammar<span class="utils"><span class="anchor"><a href="#sec-lexical-grammar">#</a></span></span></h1>
 
   <emu-production name="Comment" type="lexical" id="prod-Comment">
-    <emu-nt><a href="#prod-Comment">Comment</a></emu-nt><emu-geq>::</emu-geq><emu-rhs><emu-t>{{!</emu-t><emu-nt>SourceCharacters</emu-nt><emu-gann>[until <emu-t>}}</emu-t>]</emu-gann><emu-t>}}</emu-t></emu-rhs>
-    <emu-rhs><emu-t>{{!--</emu-t><emu-nt>SourceCharacters</emu-nt><emu-gann>[until <emu-t>--}}</emu-t>]</emu-gann><emu-t>--}}</emu-t></emu-rhs>
+    <emu-nt><a href="#prod-Comment">Comment</a></emu-nt><emu-geq>::</emu-geq><emu-rhs><emu-t>{{!</emu-t><emu-nt>SourceCharacters</emu-nt><emu-gmod>until <emu-t>}}</emu-t></emu-gmod></emu-rhs>
+    <emu-rhs><emu-t>{{!--</emu-t><emu-nt>SourceCharacters</emu-nt><emu-gmod>until <emu-t>--}}</emu-t></emu-gmod></emu-rhs>
   </emu-production>
 </emu-clause>
 
