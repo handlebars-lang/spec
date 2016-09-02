@@ -6,5 +6,9 @@ language: node_js
 node_js:
   - node
 
+cache:
+  directories:
+    - node_modules
+
 after_success:
   - bin/deploy.sh
