@@ -1,7 +1,7 @@
 <emu-clause id="sec-lexical-grammar">
   <h1>Lexical Grammar</h1>
 
-  <emu-clause id="sec-lexical-grammar-comments">
+  <emu-clause id="sec-comments">
     <h1>Comments</h1>
     <h2>Syntax</h2>
 
@@ -17,5 +17,78 @@
         <emu-gmod>until <emu-t>--}}</emu-t></emu-gmod>
       </emu-rhs>
     </emu-production>
+  </emu-clause>
+
+  <emu-clause id="sec-literals">
+    <h1>Literals</h1>
+
+    <emu-clause id="sec-null-literals">
+      <h1>Null Literals</h1>
+      <h2>Syntax</h2>
+      <emu-grammar>
+        NullLiteral ::
+          `null`
+      </emu-grammar>
+    </emu-clause>
+
+    <emu-clause id="sec-undefined-literals">
+      <h1>Undefined Literals</h1>
+      <h2>Syntax</h2>
+      <emu-grammar>
+        UndefinedLiteral ::
+          `undefined`
+      </emu-grammar>
+    </emu-clause>
+
+    <emu-clause id="sec-boolean-literals">
+      <h1>Boolean Literals</h1>
+      <h2>Syntax</h2>
+      <emu-grammar>
+        BooleanLiteral ::
+          `true`
+          `false`
+      </emu-grammar>
+    </emu-clause>
+
+    <emu-clause id="sec-string-literals">
+      <h1>String Literals</h1>
+      <h2>Syntax</h2>
+      <emu-grammar>
+        StringLiteral ::
+          `'` SingleQuotedStringCharacters? `'`
+          `"` DoubleQuotedStringCharacters? `"`
+
+        SingleQuotedStringCharacters ::
+          SingleQuotedStringCharacter SingleQuotedStringCharacters?
+
+        SingleQuotedStringCharacter ::
+          SourceCharacter but not one of `'` or `\`
+          `\'`
+
+        DoubleQuotedStringCharacters ::
+          DoubleQuotedStringCharacter DoubleQuotedStringCharacters?
+
+        DoubleQuotedStringCharacter ::
+          SourceCharacter but not one of `"` or `\`
+          `\"`
+      </emu-grammar>
+    </emu-clause>
+
+    <emu-clause id="sec-numeric-literals">
+      <h1>Numeric Literals</h1>
+      <h2>Syntax</h2>
+      <emu-grammar>
+        NumericLiteral ::
+          `-`? DecimalDigits
+          `-`? DecimalDigits `.` DecimalDigits
+
+        DecimalDigits ::
+          DecimalDigits DecimalDigit
+          DecimalDigit
+
+        DecimalDigit :: one of
+          `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
+      </emu-grammar>
+    </emu-clause>
   </emu-clause>
 </emu-clause>
