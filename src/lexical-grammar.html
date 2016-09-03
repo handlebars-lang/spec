@@ -1,19 +1,21 @@
 <emu-clause id="sec-lexical-grammar">
   <h1>Lexical Grammar</h1>
 
-  <h2>Comments</h2>
+  <emu-clause id="sec-lexical-grammar-comments">
+    <h1>Comments</h1>
+    <h2>Syntax</h2>
 
-
-  <emu-production name="Comment" type="lexical">
-    <emu-rhs>
-      <emu-t>{{!</emu-t>
-      <emu-nt>SourceCharacters</emu-nt>
-      <emu-gmod>until <emu-t>}}</emu-t></emu-gmod>
-    </emu-rhs>
-    <emu-rhs>
-      <emu-t>{{!--</emu-t>
-      <emu-nt>SourceCharacters</emu-nt>
-      <emu-gmod>until <emu-t>--}}</emu-t></emu-gmod>
-    </emu-rhs>
-  </emu-production>
+    <emu-production name="Comment" type="lexical">
+      <emu-rhs>
+        <emu-t>{{!</emu-t>
+        <emu-nt>SourceCharacters</emu-nt>
+        <emu-gmod>until <emu-t>}}</emu-t></emu-gmod>
+      </emu-rhs>
+      <emu-rhs>
+        <emu-t>{{!--</emu-t>
+        <emu-nt>SourceCharacters</emu-nt>
+        <emu-gmod>until <emu-t>--}}</emu-t></emu-gmod>
+      </emu-rhs>
+    </emu-production>
+  </emu-clause>
 </emu-clause>
