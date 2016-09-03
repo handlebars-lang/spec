@@ -15,16 +15,19 @@
   <p>This document is a work in progress draft of the Handlebars templating language specification.</p>
 </emu-clause>
 </emu-import>
-<emu-import href="./grammar.html"><emu-clause id="sec-lexical-grammar">
+<emu-import href="./lexical-grammar.html"><emu-clause id="sec-lexical-grammar">
   <h1><span class="secnum">2</span>Lexical Grammar<span class="utils"><span class="anchor"><a href="#sec-lexical-grammar">#</a></span></span></h1>
+
+  <h2>Comments</h2>
+
 
   <emu-production name="Comment" type="lexical" id="prod-Comment">
     <emu-nt><a href="#prod-Comment">Comment</a></emu-nt><emu-geq>::</emu-geq><emu-rhs><emu-t>{{!</emu-t><emu-nt>SourceCharacters</emu-nt><emu-gmod>until <emu-t>}}</emu-t></emu-gmod></emu-rhs>
     <emu-rhs><emu-t>{{!--</emu-t><emu-nt>SourceCharacters</emu-nt><emu-gmod>until <emu-t>--}}</emu-t></emu-gmod></emu-rhs>
   </emu-production>
 </emu-clause>
-
-<emu-clause id="sec-syntactic-grammar">
+</emu-import>
+<emu-import href="./syntactic-grammar.html"><emu-clause id="sec-syntactic-grammar">
   <h1><span class="secnum">3</span>Syntactic Grammar<span class="utils"><span class="anchor"><a href="#sec-syntactic-grammar">#</a></span></span></h1>
 
   <emu-grammar><emu-production name="Root" id="prod-Root">
